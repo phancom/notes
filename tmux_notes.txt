@@ -1,0 +1,31 @@
+#scroll page
+ctrl-b
+[
+<arrow> or <pgup/pgdn> to scroll
+q (quit)
+
+//resize panes, rapidly arrow with esc for mutliple step
+//this only adjust panes small increments at a time
+ctrl+b  esc+ arrows
+
+//adjust pane size command
+//get to command prompt
+ctrl+b :
+:resize-pane -D (Resizes the current pane down)
+:resize-pane -U (Resizes the current pane upward)
+:resize-pane -L (Resizes the current pane left)
+:resize-pane -R (Resizes the current pane right)
+:resize-pane -D 10 (Resizes the current pane down by 10 cells)
+:resize-pane -U 10 (Resizes the current pane upward by 10 cells)
+:resize-pane -L 10 (Resizes the current pane left by 10 cells)
+:resize-pane -R 10 (Resizes the current pane right by 10 cells)
+
+//resize panes, auto size through different arragnemets
+ctrl+b spacebar
+
+//copy and paste in vim
+ctrl+b, [ 	enter copy mode
+ctrl+space 	start text selection
+esc+w		write selection to tmux clipboard
+
+ctrl+b, ] 	paste selection from clipboard

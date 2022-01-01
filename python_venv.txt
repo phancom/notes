@@ -1,0 +1,168 @@
+//create and activate python virtual enviroment
+//note pyenv was deprecated for 3.6
+cd <project_folder>
+python3 -m venv <venvname>
+source <venvname>/bin/activate
+
+//create virtual enviroment using macports using venv, no pip or setuptools
+/opt/local/Library/Python.framework/Versions/3.3/bin/python3 -m venv <venvname>
+
+//create enviroment using mac port installation with pip
+/opt/local/Library/Frameworks/Python.framework/Versions/3.3/bin/virtualenv <venvname>
+//can export PATH to put macports paths in front of PATH so Ports binaries are found first
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+
+//this creates a folder structure:
+
+    bin: files that interact with the virtual environment
+    include: C headers that compile the Python packages
+    lib: a copy of the Python version along with a site-packages folder where each dependency is installed
+
+//activte virtual enviroment
+source <venv>/bin/activate
+
+//deactivate enviroment
+deactivate
+
+
+//from inside venv install ipykernal
+pip install ipykernal
+
+//install a new kernal
+ipython kernal install --user --name=<venvname>
+
+//install packages, pip and setuptool
+pip list
+pip install --upgrade setuptools
+pip install --upgrade pip
+pip list
+
+
+-------
+//virtual eviroment setup on ubuntu laptop
+//Python Virtual Environment
+//ssh tunnel into machine
+ssh -L 8888:localhost:8888 halo@halo-g3
+
+
+//look at current symlink for python3
+ls -la /usr/bin/python3*
+
+//remove a symlink for python3
+sudo rm -f /usr/bin/python3
+
+//create symlink to python3.5
+sudo ln -s python3.5 /usr/bin/python3
+
+
+//install virtual environment
+sudo -H pip3 install --upgrade pip
+sudo -H pip3 install virtualenv
+
+//make directory for project, go into dir, create project virtual environment 
+virtualenv my_project_env
+
+//alternate, define which python version to use for project sa_env
+virtualenv --python=python3.7 sa_env   
+
+//activate environment, deactivate by calling deactivate
+source my_project_env/bin/activate
+
+//install Jupiter into venv and run, copy the http://localhost:8888/?token=xxxx into webpage
+Pip install Jupiter
+Jupyter notebook
+
+
+//look at web SA server using Firefox
+Ssh - X halo@halo-g3
+Firefox
+
+-------
+//setup virtual enviroment on mac
+//making new vnev for amongus tasks in ~/python_venvsc folder, this will create the amoungus folders struct
+/opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin/python3 -m venv amongus
+
+
+//activate enviroment
+source ./bin/activate
+
+//running pip --verision and pip3 --verision linked same veriosn 3.7
+
+pip install --upgrade setuptools
+pip install --upgrade pip
+pip install ipython
+pip install jupyter notebook
+
+---
+//inspect python version and package install path
+import sys
+sys.version
+sys.path
+
+//or
+python -m site
+
+//open jupyter notebook
+jupyter notebook
+//this will open up notebook locally and present address to ssh into remotely, requires ssh port binding
+
+//installing packages inside jupyter notebooks, good practice
+!{sys.executable} -m pip install [package_name]
+
+---
+//in VIM maye run this since vimrc doesnt support?
+" Virtualenv support
+py3 << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  exec(compile(open(activate_this, "rb").read(), activate_this, 'exec'), dict(__file__=activate_this))
+EOF
+
+---
+//check where what pip is being used
+pip --version
+  pip 19.0.3 from /usr/lib/python3.7/site-packages/pip (python 3.7)
+
+pip3 --version
+  pip 19.0.3 from /usr/lib/python3.7/site-packages/pip (python 3.7)
+
+python --version
+  Python 3.7.3
+
+which python
+  /usr/bin/python
+
+ls -l '/usr/bin/python'
+  lrwxrwxrwx 1 root root 7 Mar 26 14:43 /usr/bin/python -> python3
+
+which python3
+  /usr/bin/python3
+
+ls -l /usr/bin/python3
+  lrwxrwxrwx 1 root root 9 Mar 26 14:43 /usr/bin/python3 -> python3.7
+
+ls -l /usr/bin/python3.7
+  -rwxr-xr-x 2 root root 14120 Mar 26 14:43 /usr/bin/python3.7
+
+----
+//copy virtual enviroment
+
+//activate current enviroment
+source ./bin/activate
+
+//create requirements file
+python3 -m pip freeze > requirements.txt
+deactivate
+
+//create new virtual env
+python3 -m venv <name>
+source ./bin/activate
+
+//move requirements.txt over and run install
+phon3 -m pip install -r requirements.txt
+//
+
+

@@ -1,0 +1,69 @@
+h, ~/.zprofile
+/etc/zshenv
+
+
+----
+change ethernet interface name in Ubuntu 16.04
+Step 1: Disable the default Firmware inherited names.
+
+Edit your /etc/default/grub changing the line from
+
+GRUB_CMDLINE_LINUX=""
+
+to
+
+GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"
+
+and, finally run as root:
+
+$ sudo update-grub
+
+and reboot your system.
+
+$ sudo reboot
+
+Step 2: Create the persistent file /etc/udev/rules.d/70-persistent-net.rules as root and fill them.
+
+$ sudo gedit /etc/udev/rules.d/70-persistent-net.rules
+SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR{address}=="02:01:02:03:04:05", ATTR{dev_id}=="0x0", ATTR{type}=="1", NAME="eth0"
+(edit only address (mac) and NAME)
+
+----
+//compare two different directories and copy difference to seperate directory, use full paths
+rsync -rvcm --compare-dest=../old/ new/ difference/
+
+//can initally copy using -a for archive timestamp
+//mounted afs (network directories) located unver /Volumes
+/Volumes/Macintosh HD/afs/mitll/data/HALO-GEO
+
+
+-----
+ls -d */  - list only directories
+
+-----
+//secure file transfer
+
+Copy the file "foobar.txt" from a remote host to the local host
+
+    $ scp your_username@remotehost.edu:foobar.txt /some/local/directory
+
+Copy the file "foobar.txt" from the local host to a remote host
+
+sudo dd bs=1m if=/dev/rdisk2 | gzip > rpiOS_detector_128GBsdcard.img.gz    $ scp foobar.txt your_username@remotehost.edu:/some/remote/directory 
+
+//delete files with a pattern
+ls |grep .iq | xargs rm
+
+____
+//Backing up scared img to computer
+//list all connected devices to find sdcard 
+diskutil list
+
+//unmount disk
+diskutil unmountDisk /dev/disk2
+
+//create image and pipe to gzip to compress
+sudo dd bs=4M if=/dev/disk2 | gzip > rpiOS_detector_128GBsdcard.img.gz 
+
+//restore image, unmount disk first
+gunzip --stdout PiOS.img.gz | sudo dd bs=1m of=/dev/rdiskN;sync

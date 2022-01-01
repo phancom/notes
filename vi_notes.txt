@@ -1,0 +1,99 @@
+x   - delete current character
+dw  - delete current word
+dd  - delete current line
+5dd - delete five lines
+
+d$  - delete to end of line
+d0  - delete to beginning of line
+
+<C-o> 80i- <esc> - inserts 80 dashes while in insert mode
+<C-o> :norm 8ia <return> - inserts 80 dashes in insert mode without leaving
+
+p  - puts clipboard line below current line
+
+yy  - yank current line into clipboard, copy current line
+:6t - copy line 6 to below current line
+:t6 - copy current line to below line 6
+
+:t6 - copy current line to below line 6, in command mode
+
+i 	insert at current position
+I	insert at beginning of line
+a	append after current position
+A	append at end of line
+o	open new line below current position
+O	open new line above currnt position
+
+u  - undo in normal mode
+ctr+r 	redo in normal mode
+:wa - write/save all buffers and open tabs
+
+Ctrl+d   tab left, in insert mode
+Crtl+t   tab right, in insert mode
+Shift+<< tab left, in normal mode
+Shift+>> tab right, in normal mode
+
+//tabs navigation
+:tabs         list all tabs including their displayed windows
+:tabm 0       move current tab to first
+:tabm         move current tab to last
+:tabm {i}     move current tab to position i+1
+
+:tabn         go to next tab
+:tabp         go to previous tab
+:tabfirst     go to first tab
+:tablast      go to last tab
+
+gt            go to next tab, normal mode
+gT            go to previous tab, normal mode
+{i}gt         go to tab in position i, 5gt,normal mode
+
+//tabs file open
+vim -p first.txt second.txt
+vim -p *.txt
+
+
+:tabnew {file}	  edit file in new tab
+:tabedit {file}   edit specified file in a new tab
+:tabfind {file}   open a new tab with filename given, searching the 'path' to find it
+:tabclose         close current tab
+:tabclose {i}     close i-th tab
+:tabonly          close all other tabs (show only the current tab)
+
+//tabfind uses VIM current path, set path to search current(.) and every other dir under current(**)
+:set path=.,,**
+
+
+//indent multiple line
+>	indent current line, in normal mode
+5>>	indent 5 lines
+
+V	using visual mode to mark the lines
+Vjj	using visual mode, mark three lines
+Vjj>	using visual mode, mark three lines,indent
+
+//copy to system clipboard
+Shift V	select blocks using visual mode
+" * y 	copy to system clipboard
+" * p 	paste from system clipboard
+
+//insert comment at beginning of mutiple lines
+ctrl+v	enter visual BLOCK(not line) mode while in normal mode
+jj	select two lines
+shift+i	enable insert mode
+#	character to enter in each block
+esc	will enter character for each block, delay ~1s
+
+//search and replace
+:%s/foo/bar/gc	find all (global) occurance of foo and replace with bar with confirmation
+
+:s/foo/bar/g	find all occurance of foo in current line only and replace with bar
+
+:@ 		to repeat last command, on current line, reuse search and replace again
+
+//pattern for whole word:
+\<word\>
+
+//search whole word and replace global
+:%s/	search whole file 
+:%s/\<word\>/nword/gc	c is for conf for each change
